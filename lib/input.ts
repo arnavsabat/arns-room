@@ -65,14 +65,23 @@ const KEY_MAP: Record<string, InputAction> = {
   " ": "interact",
 };
 
-function shouldIgnoreKey(el: EventTarget | null, action: InputAction): boolean {
+function shouldIgnoreKey(
+  el: EventTarget | null,
+  action: InputAction,
+  key: string
+): boolean {
   if (!(el instanceof HTMLElement)) return false;
   if (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable)
     return true; // never steal keys from a text field
   // Buttons/links keep Enter and Space (activation keys); movement keys like
   // WASD still walk even when a button happens to hold focus.
-  if (action === "interact" && (el.tagName === "BUTTON" || el.tagName === "A"))
-    return true;
+  if (
+  action === "interact" &&
+  (el.tagName === "BUTTON" || el.tagName === "A") &&
+  (key === "Enter" || key === " ")
+) {
+  return true;
+}
   return false;
 }
 
@@ -84,7 +93,7 @@ function shouldIgnoreKey(el: EventTarget | null, action: InputAction): boolean {
 export function bindKeyboard(enabled: () => boolean): () => void {
   const down = (e: KeyboardEvent) => {
     const action = KEY_MAP[e.key];
-    if (!action || shouldIgnoreKey(e.target, action) || !enabled()) return;
+    if (!action || shouldIgnoreKey(e.target, action, e.key) || !enabled()) return;
     // Prevent arrows/space from scrolling the page.
     e.preventDefault();
     input.press(action);
