@@ -116,8 +116,6 @@ export const rooms: Record<string, RoomDef> = {
     objects: [
       { id: "door-back", sprite: "door", label: "Door — Bedroom", gx: 1, gy: 0, wall: "right", scale: 3, sign: "BEDROOM", interaction: { type: "door", to: "bedroom", entry: { gx: 4, gy: 1 } } },
       { id: "gallery", sprite: "gallery", label: "Gallery wall — Design & Art", gx: 4, gy: 0, wall: "right", scale: 3, interaction: { type: "window", panelId: "art" } },
-      { id: "shelf-a", sprite: "bookshelf-left", label: "Myth shelf — Writing & Fiction", gx: 0, gy: 1, interaction: { type: "window", panelId: "writing" } },
-      { id: "shelf-b", sprite: "bookshelf-left", label: "Fantasy shelf — Writing & Fiction", gx: 0, gy: 2, interaction: { type: "window", panelId: "writing" } },
       { id: "paints", sprite: "paints", label: "Paint table", gx: 0, gy: 4 },
       { id: "armchair", sprite: "armchair", label: "Reading chair", gx: 5, gy: 4 },
       { id: "lamp", sprite: "lamp", label: "Floor lamp", gx: 7, gy: 5, glow: true },
