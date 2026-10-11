@@ -47,12 +47,12 @@ export const panels: Record<string, ContentPanel> = {
   /* ------------------------------------------------ Design & Art (easel) */
   art: {
     id: "art",
-    title: "Studio — Design & Art",
+    title: "Studio - Art & Sketches",
     accent: "var(--arcane)",
     kind: "cards",
     size: { w: 560, h: 460 },
     intro:
-      "The easel is where everything starts. A few pieces and design experiments — more on the gallery wall soon.",
+      "Working on some things, more on the gallery wall soon.",
     cards: [
       {
         title: "Night Room (this site)",
@@ -115,68 +115,65 @@ export const panels: Record<string, ContentPanel> = {
   /* ------------------------------------------ Writing & Fiction (books) */
   writing: {
     id: "writing",
-    title: "The Shelves — Writing & Fiction",
+    title: "The Shelves",
     accent: "var(--myth)",
     kind: "writing",
     size: { w: 560, h: 480 },
     intro:
-      "I write fiction that lives somewhere between Olympus and a city bus stop — myth, magic schools, and heroes figuring it out.",
+      "I write when I can and it's often fiction.",
     pieces: [
       {
-        title: "The Lighthouse at the Edge of the Aegean",
+        title: "A John Constantine Story",
         status: "drafting",
-        blurb: "A keeper's apprentice discovers the lamp she tends is signaling somebody very old.",
+        blurb: "Set in 1980s Liverpool, a so called charlatan finds himself at a moral crossroads.",
         excerpt:
-          "The light turned, and for one full rotation the sea forgot to move.",
+          "...",
       },
       {
-        title: "Half the Sky in Bronze",
-        status: "editing",
+        title: "Untitled Project",
+        status: "idea",
         blurb: "Short story — a sculptor is commissioned to finish a statue the gods abandoned.",
       },
       {
-        title: "Court of Second Stringers",
+        title: "Untitled Project #2",
         status: "idea",
         blurb: "A bench player on a struggling team realizes the season is being replayed, again and again.",
       },
     ],
     shelf: [
-      { title: "Greek myths, retold and raw", note: "the shelf's spine and soul" },
-      { title: "Demigod adventures", note: "the reason I write YA-flavored quests" },
-      { title: "Wizarding classics", note: "for the castles and the corridors" },
-      { title: "Cape comics — both houses", note: "story structure in four colors" },
+      { title: "The Fruit of Revenge", note: "An original Greek epic written by a 14 y/o" },
     ],
   },
 
   /* ------------------------------------------------ Comics (longbox) */
   comics: {
     id: "comics",
-    title: "Longbox — Comics & Influences",
+    title: "The Comic Longbox",
     accent: "var(--arcane)",
     kind: "cards",
     size: { w: 540, h: 420 },
     intro:
-      "A longbox of influences. I read across both big houses — what I steal is structure: splash pages, cliffhangers, secret identities.",
+      "A longbox of influences. Some of my favourite comic issues!",
     cards: [
       {
-        title: "Panel Rhythm",
+        title: "...",
         description:
-          "What I've learned from comics about pacing a page — and how it maps to designing screens.",
-        tags: ["craft", "design"],
+          "probably a spidey comic",
+        tags: ["he's", "top 2 fs"],
         accent: "var(--lamp)",
       },
       {
-        title: "Heroes of My Own",
+        title: "...",
         description:
-          "Original character sketches and one-page origin stories. No borrowed capes — new ones.",
-        tags: ["original characters", "writing"],
+          "this one's probably batman",
+        tags: ["my childhood", "really"],
         accent: "var(--myth)",
       },
       {
-        title: "Mythology is the First Shared Universe",
+        title: "...",
         description:
-          "An essay-in-progress on why the Greek pantheon reads like a superhero team book.",
-        tags: ["essay", "mythology"],
+          "torn between green lantern and constantine here",
+        tags: ["my latest", "favourites"],
         accent: "var(--arcane)",
       },
     ],
@@ -208,13 +205,12 @@ export const panels: Record<string, ContentPanel> = {
     kind: "about",
     size: { w: 520, h: 420 },
     paragraphs: [
-      "Hi, I'm Arnav — a creative. I design, draw, and write, usually with a myth open in one tab and a match on in the other.",
-      "This room is my corner of the internet: everything in it is clickable, and everything clickable is something I love.",
+      "Hi, I'm Arnav. Alongside building, I enjoy designing, drawing, and writing.",
+      "There's a lot that's clickable on this website, feel free to walk around.",
     ],
     facts: [
-      { label: "Making", value: "Design, pixel art, fiction" },
-      { label: "Reading", value: "Myth, magic, and cape comics" },
-      { label: "Playing", value: "Soccer & basketball" },
+      { label: "My pasttimes", value: "The movies, hiking, and food." },
+      { label: "My team", value: "You already know ;)" },
       { label: "Email", value: "sabat.arnav@gmail.com" },
     ],
   },
@@ -222,12 +218,12 @@ export const panels: Record<string, ContentPanel> = {
   /* ------------------------------------------------------ Contact */
   contact: {
     id: "contact",
-    title: "Letter Desk — Say Hi",
+    title: "The Letter Desk",
     accent: "var(--arcane)",
     kind: "contact",
     size: { w: 460, h: 340 },
     blurb:
-      "There's always paper on this desk. Send a letter about work, writing, art, or your ranking of the Twelve Olympians.",
+      "There's always paper on this desk. Say hi!",
   },
 
   /* --------------------------------------- Mythic artifact (easter egg) */
