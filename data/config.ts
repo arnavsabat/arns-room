@@ -9,7 +9,7 @@ export const site = {
   /** Browser tab title. */
   tabTitle: "Arns Room",
   /** The line the avatar "types" in its speech bubble on load. */
-  tagline: "Hi, I'm Arnav!",
+  tagline: "Welcome! I'm Arnav",
   /** Contact email (Contact nook + About window). */
   email: "sabat.arnav@gmail.com",
   /** Social links (top-left HUD). Resume can be a PDF dropped into /public. */

@@ -215,7 +215,7 @@ export const panels: Record<string, ContentPanel> = {
     kind: "about",
     size: { w: 520, h: 420 },
     paragraphs: [
-      "Hi, I'm Arnav. Alongside building, I enjoy designing, drawing, and writing.",
+      "Alongside building, I enjoy designing, drawing, and writing.",
       "There's a lot that's clickable on this website, feel free to walk around.",
     ],
     facts: [
