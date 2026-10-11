@@ -122,6 +122,16 @@ export function PanelBody({ panel }: { panel: ContentPanel }) {
                       “{piece.excerpt}”
                     </blockquote>
                   )}
+                  {piece.link && (
+                    <a
+                      href={piece.link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pixel-btn mt-3 inline-block px-2 py-1 text-xs"
+                    >
+                      {piece.link.label} ↗
+                    </a>
+                  )}
                 </li>
               ))}
           </ul>
@@ -143,6 +153,16 @@ export function PanelBody({ panel }: { panel: ContentPanel }) {
                       </span>
                       {book.title}{" "}
                       <span style={{ color: "var(--ink-muted)" }}>— {book.note}</span>
+                      {book.link && (
+                        <a
+                          href={book.link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="pixel-btn ml-2 inline-block px-1.5 py-0.5 text-[10px]"
+                        >
+                          {book.link.label} ↗
+                        </a>
+                      )}
                     </li>
                   ))}
               </ul>

@@ -11,6 +11,8 @@
  */
 
 import { create } from "zustand";
+import { rooms } from "../data/rooms";
+import { buildBlocked, canStand } from "../lib/collision";
 
 export type OpenWindow = {
   /** id of a ContentPanel from data/content.ts */
@@ -46,6 +48,31 @@ type WorldState = {
 };
 
 let zCounter = 10;
+
+export function resolveRoomEntry(
+  roomId: string,
+  entry: { gx: number; gy: number },
+): { gx: number; gy: number } | null {
+  const room = rooms[roomId];
+  if (!room) return null;
+
+  const next = {
+    gx: Number.isFinite(entry.gx) ? entry.gx : room.spawn.gx,
+    gy: Number.isFinite(entry.gy) ? entry.gy : room.spawn.gy,
+  };
+
+  const safe = {
+    gx: Math.min(Math.max(0, next.gx), room.cols - 1),
+    gy: Math.min(Math.max(0, next.gy), room.rows - 1),
+  };
+
+  const blocked = buildBlocked(room);
+  if (!canStand(room, blocked, safe.gx + 0.5, safe.gy + 0.5, 0.3)) {
+    return room.spawn;
+  }
+
+  return safe;
+}
 
 export const useWorld = create<WorldState>((set, get) => ({
   booted: false,
@@ -91,13 +118,19 @@ export const useWorld = create<WorldState>((set, get) => ({
     closeWindow(top.panelId);
   },
 
-  startTransition: (roomId, entry) => set({ transitionTo: { roomId, entry } }),
+  startTransition: (roomId, entry) => {
+    const resolved = resolveRoomEntry(roomId, entry);
+    if (!resolved) return;
+    set({ transitionTo: { roomId, entry: resolved } });
+  },
 
   finishTransition: () => {
     const t = get().transitionTo;
     if (!t) return;
-    avatarPos.gx = t.entry.gx;
-    avatarPos.gy = t.entry.gy;
+    const resolved = resolveRoomEntry(t.roomId, t.entry);
+    const safeEntry = resolved ?? rooms[t.roomId]?.spawn ?? { gx: 0, gy: 0 };
+    avatarPos.gx = safeEntry.gx;
+    avatarPos.gy = safeEntry.gy;
     set({ roomId: t.roomId, transitionTo: null, nearbyObjectId: null });
   },
 

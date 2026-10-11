@@ -26,7 +26,24 @@ export type WritingPiece = {
   status: "drafting" | "editing" | "published" | "idea";
   blurb: string;
   excerpt?: string;
+  link?: { href: string; label: string };
 };
+
+export function makeWritingPiece(
+  title: string,
+  status: WritingPiece["status"],
+  blurb: string,
+  excerpt = "",
+  link?: WritingPiece["link"],
+): WritingPiece {
+  return {
+    title,
+    status,
+    blurb,
+    ...(excerpt ? { excerpt } : {}),
+    ...(link ? { link } : {}),
+  };
+}
 
 export type ContentPanel = {
   id: string;
@@ -39,7 +56,7 @@ export type ContentPanel = {
 } & (
   | { kind: "about"; paragraphs: string[]; facts?: Array<{ label: string; value: string }> }
   | { kind: "cards"; intro?: string; cards: Card[] }
-  | { kind: "writing"; intro: string; pieces: WritingPiece[]; shelf?: Array<{ title: string; note: string }> }
+  | { kind: "writing"; intro: string; pieces: WritingPiece[]; shelf?: Array<{ title: string; note: string; link?: { href: string; label: string } }> }
   | { kind: "contact"; blurb: string }
 );
 
@@ -117,26 +134,28 @@ export const panels: Record<string, ContentPanel> = {
     intro:
       "I write sometimes...",
     pieces: [
-      {
-        title: "A John Constantine Story",
-        status: "drafting",
-        blurb: "Set in 1980s Liverpool, a so called charlatan finds himself at a moral crossroads.",
-        excerpt:
-          "Some day, a feature film.",
-      },
-      {
-        title: "Untitled Project",
-        status: "idea",
-        blurb: "",
-      },
-      {
-        title: "Untitled Project #2",
-        status: "idea",
-        blurb: "",
-      },
+      makeWritingPiece(
+        "A John Constantine Story",
+        "drafting",
+        "Set in 1980s Liverpool, a so called charlatan finds himself at a moral crossroads.",
+        "Some day, a feature film.",
+        {
+          href: "https://docs.google.com/document/d/11B7y2MNSkQHM02Pt_VmyzQcDcM1r4p1qPviqH-ZBFY0/edit?usp=sharing",
+          label: "Read Google Doc",
+        },
+      ),
+      makeWritingPiece("Untitled Project", "idea", ""),
+      makeWritingPiece("Untitled Project #2", "idea", ""),
     ],
     shelf: [
-      { title: "The Fruit of Revenge", note: "An original Greek epic written by a 14 y/o" },
+      {
+        title: "The Fruit of Revenge",
+        note: "An original Greek epic written by a 14 y/o",
+        link: {
+          href: "https://docs.google.com/document/d/1n_YBvKL9Y4_zLUp0W5u7vuZHOjbHvdOwqAkYT_Y8e6Y/edit?usp=sharing",
+          label: "Read Google Doc",
+        },
+      },
       { title: "", note: "" },
       { title: "", note: "" },
       { title: "", note: "" },
