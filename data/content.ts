@@ -43,72 +43,67 @@ export type ContentPanel = {
   | { kind: "contact"; blurb: string }
 );
 
+/**
+ * Small helper for future cards: add more entries by appending makeCard(...)
+ * calls. Empty cards are ignored automatically by the UI, so you can keep a
+ * growing list without having to delete placeholder rows later.
+ */
+export function makeCard(
+  title: string,
+  description: string,
+  tags: string[] = [],
+  accent = "var(--arcane)",
+  link?: Card["link"],
+): Card {
+  return {
+    title,
+    description,
+    ...(tags.some(Boolean) ? { tags: tags.filter(Boolean) } : {}),
+    accent,
+    ...(link ? { link } : {}),
+  };
+}
+
 export const panels: Record<string, ContentPanel> = {
   /* ------------------------------------------------ Design & Art (easel) */
   art: {
     id: "art",
-    title: "Studio - Art & Sketches",
+    title: "The Studio",
     accent: "var(--arcane)",
     kind: "cards",
     size: { w: 560, h: 460 },
     intro:
-      "Working on some things, more on the gallery wall soon.",
+      "Working on some things, more sketches soon.",
     cards: [
-      {
-        title: "Night Room (this site)",
-        description:
-          "A cozy pixel world built as a portfolio. Original sprites, a starry night sky, and a lot of amber light.",
-        tags: ["pixel art", "web design", "worldbuilding"],
-        accent: "var(--lamp)",
-      },
-      {
-        title: "Constellation Studies",
-        description:
-          "A series of star-line figures drawn from Greek myth — the hunter, the winged horse, the lyre.",
-        tags: ["illustration", "mythology"],
-        accent: "var(--myth)",
-      },
-      {
-        title: "Poster Experiments",
-        description:
-          "Comic-inspired layout and type studies. Bold panels, halftones, and heroes of my own invention.",
-        tags: ["graphic design", "comics"],
-        accent: "var(--arcane)",
-      },
+      makeCard(
+        "Night Room (this site)",
+        "A cozy pixel world built as a portfolio. Original sprites, a starry night sky, and a lot of amber light.",
+        ["pixel art", "web design"],
+        "var(--lamp)",
+      ),
+      makeCard("Coming soon", "", [], "var(--myth)"),
+      makeCard("Coming soon", "", [], "var(--arcane)"),
     ],
   },
 
   /* ------------------------------------------------ Projects (computer) */
   projects: {
     id: "projects",
-    title: "Computer — Projects",
+    title: "The TrustyComputer",
     accent: "var(--lamp)",
     kind: "cards",
     size: { w: 560, h: 440 },
     intro: "Things I've built or am building. The screen is always glowing with something.",
     cards: [
-      {
-        title: "Arns Room",
-        description:
-          "This interactive pixel-room site: Next.js, TypeScript, a data-driven world engine, and hand-placed furniture.",
-        tags: ["Next.js", "TypeScript", "creative coding"],
-        link: { href: "https://github.com/arnavsabat", label: "GitHub" },
-        accent: "var(--lamp)",
-      },
-      {
-        title: "Story Engine (WIP)",
-        description:
-          "A tool for outlining fiction — characters, myth references, and plot threads pinned to a corkboard.",
-        tags: ["writing tools", "WIP"],
-        accent: "var(--myth)",
-      },
-      {
-        title: "Match Tracker",
-        description:
-          "A little dashboard for following soccer and basketball box scores with friends.",
-        tags: ["sports", "data"],
-        accent: "var(--arcane)",
-      },
+      makeCard(
+        "Arns Room",
+        "This interactive pixel-room site: Next.js, TypeScript, a data-driven world engine, and hand-placed furniture.",
+        ["Next.js", "TypeScript", "creative coding"],
+        "var(--lamp)",
+        { href: "https://github.com/arnavsabat", label: "GitHub" },
+      ),
+      makeCard("", "", [], "var(--myth)"),
+      makeCard("", "", [], "var(--arcane)"),
     ],
   },
 
@@ -120,28 +115,31 @@ export const panels: Record<string, ContentPanel> = {
     kind: "writing",
     size: { w: 560, h: 480 },
     intro:
-      "I write when I can and it's often fiction.",
+      "I write sometimes...",
     pieces: [
       {
         title: "A John Constantine Story",
         status: "drafting",
         blurb: "Set in 1980s Liverpool, a so called charlatan finds himself at a moral crossroads.",
         excerpt:
-          "...",
+          "Some day, a feature film.",
       },
       {
         title: "Untitled Project",
         status: "idea",
-        blurb: "Short story — a sculptor is commissioned to finish a statue the gods abandoned.",
+        blurb: "",
       },
       {
         title: "Untitled Project #2",
         status: "idea",
-        blurb: "A bench player on a struggling team realizes the season is being replayed, again and again.",
+        blurb: "",
       },
     ],
     shelf: [
       { title: "The Fruit of Revenge", note: "An original Greek epic written by a 14 y/o" },
+      { title: "", note: "" },
+      { title: "", note: "" },
+      { title: "", note: "" },
     ],
   },
 
@@ -210,8 +208,9 @@ export const panels: Record<string, ContentPanel> = {
     ],
     facts: [
       { label: "My pasttimes", value: "The movies, hiking, and food." },
-      { label: "My team", value: "You already know ;)" },
-      { label: "Email", value: "sabat.arnav@gmail.com" },
+      { label: "My email", value: "sabat.arnav@gmail.com" },
+      { label: "", value: "" },
+      { label: "", value: "" },
     ],
   },
 
