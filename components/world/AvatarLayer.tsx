@@ -38,6 +38,23 @@ function objectAnchor(obj: PlacedObject): { gx: number; gy: number } {
   return { gx: obj.gx + w / 2, gy: obj.gy + h / 2 };
 }
 
+function objectDistance(obj: PlacedObject, x: number, y: number): number {
+  if (obj.wall === "right" || obj.wall === "left") {
+    const anchor = objectAnchor(obj);
+    return Math.hypot(anchor.gx - x, anchor.gy - y);
+  }
+
+  const w = obj.footprint?.w ?? 1;
+  const h = obj.footprint?.h ?? 1;
+  const x1 = obj.gx;
+  const y1 = obj.gy;
+  const x2 = obj.gx + w;
+  const y2 = obj.gy + h;
+  const nearestX = Math.min(Math.max(x, x1), x2);
+  const nearestY = Math.min(Math.max(y, y1), y2);
+  return Math.hypot(nearestX - x, nearestY - y);
+}
+
 type Props = {
   room: RoomDef;
   originX: number;
@@ -174,8 +191,7 @@ export function AvatarLayer({ room, originX, originY, paused, onInteract }: Prop
       let best: PlacedObject | null = null;
       let bestDist = INTERACT_RANGE;
       for (const obj of interactives) {
-        const anchor = objectAnchor(obj);
-        const d = Math.hypot(anchor.gx - avatarPos.gx, anchor.gy - avatarPos.gy);
+        const d = objectDistance(obj, avatarPos.gx, avatarPos.gy);
         if (d < bestDist) {
           best = obj;
           bestDist = d;
@@ -200,7 +216,7 @@ export function AvatarLayer({ room, originX, originY, paused, onInteract }: Prop
   }, []);
 
   const facingKey = facing === "left" || facing === "right" ? "side" : facing;
-  const grid = avatarSprites[facingKey][moving ? frame : 0];
+  const grid = avatarSprites[facingKey]?.[moving ? frame : 0] ?? avatarSprites.front[0];
 
   return (
     <>

@@ -9,7 +9,7 @@ export const site = {
   /** Browser tab title. */
   tabTitle: "Arns Room",
   /** The line the avatar "types" in its speech bubble on load. */
-  tagline: "Hi, I'm Arnav, a creative.",
+  tagline: "Hi, I'm Arnav!",
   /** Contact email (Contact nook + About window). */
   email: "sabat.arnav@gmail.com",
   /** Social links (top-left HUD). Resume can be a PDF dropped into /public. */
@@ -28,7 +28,7 @@ export const site = {
     "black hair, summer fit and shorts, bright and high-spirited vibe",
   /** SEO description. */
   description:
-    "Arnav's cozy pixel room — a little night world of design, art, mythology, comics, sport, and fiction. Walk around, click things.",
+    "Arnav's cozy pixel room, walk around & click things.",
 } as const;
 
 /**

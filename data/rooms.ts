@@ -27,7 +27,7 @@ export type Interaction =
   | { type: "window"; panelId: string }
   /** Walks you to another room. `entry` = tile you appear on. */
   | { type: "door"; to: string; entry: { gx: number; gy: number } }
-  /** Playful bounce + toast message (the soccer ball). */
+  /** Playful bounce + toast message. */
   | { type: "bounce"; message: string }
   /** Sparkle + opens a panel (the mythic artifact). */
   | { type: "sparkle"; panelId: string };

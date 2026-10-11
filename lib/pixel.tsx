@@ -20,7 +20,8 @@ export type PixelGrid = {
   rows: string[];
 };
 
-export function gridSize(grid: PixelGrid): { w: number; h: number } {
+export function gridSize(grid?: PixelGrid | null): { w: number; h: number } {
+  if (!grid) return { w: 0, h: 0 };
   return { w: grid.rows[0]?.length ?? 0, h: grid.rows.length };
 }
 
@@ -107,6 +108,7 @@ export const PixelSprite = React.memo(function PixelSprite({
   label,
   flip,
 }: PixelSpriteProps) {
+  if (!grid) return null;
   const { w, h } = gridSize(grid);
   return (
     <svg

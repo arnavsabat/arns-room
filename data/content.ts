@@ -106,7 +106,7 @@ export const panels: Record<string, ContentPanel> = {
   /* ------------------------------------------------ Projects (computer) */
   projects: {
     id: "projects",
-    title: "The TrustyComputer",
+    title: "The Trusty Computer",
     accent: "var(--lamp)",
     kind: "cards",
     size: { w: 560, h: 440 },
@@ -199,19 +199,12 @@ export const panels: Record<string, ContentPanel> = {
   /* ------------------------------------------- Hobbies / sports (hoop) */
   hobbies: {
     id: "hobbies",
-    title: "Courtside — Sport & Play",
+    title: "",
     accent: "var(--lamp)",
     kind: "about",
-    size: { w: 480, h: 400 },
-    paragraphs: [
-      "Soccer and basketball are how I stay moving. Soccer for the geometry, basketball for the tempo.",
-      "Kick the ball on the floor — it still counts as practice.",
-    ],
-    facts: [
-      { label: "Position", value: "Wherever the coach is desperate" },
-      { label: "Go-to move", value: "The optimistic through-ball" },
-      { label: "Free throws", value: "Improving. Allegedly." },
-    ],
+    size: { w: 360, h: 220 },
+    paragraphs: [],
+    facts: [],
   },
 
   /* ------------------------------------------------------ About me */

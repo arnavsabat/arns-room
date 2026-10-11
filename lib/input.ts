@@ -23,7 +23,6 @@ class InputManager {
   press(action: InputAction) {
     if (!this.held.has(action)) {
       this.held.add(action);
-      // "interact" fires as a tap event; movement is polled instead.
       if (action === "interact") this.tapListeners.forEach((l) => l(action));
     }
   }

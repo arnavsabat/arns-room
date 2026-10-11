@@ -124,8 +124,20 @@ export function Room({ room, lampsOn, onInteract, children }: RoomProps) {
   }, [room, blocked, debug]);
 
   /* ----------------------------------- wall-object geometry (shared) */
-  const wallPlacement = (obj: PlacedObject) => {
+  const wallPlacement = (
+    obj: PlacedObject,
+  ): {
+    grid: (typeof furniture)[string];
+    pu: number;
+    x0: number;
+    y0: number;
+    flatY: number;
+    slope: number;
+    xc: number;
+    topY: number;
+  } | null => {
     const grid = furniture[obj.sprite];
+    if (!grid) return null;
     const pu = obj.scale ?? PU;
     const wArt = grid.rows[0]?.length ?? 0;
     const hArt = grid.rows.length;
@@ -166,25 +178,27 @@ export function Room({ room, lampsOn, onInteract, children }: RoomProps) {
       anchor = pt(obj.gx, obj.gy);
       // depth of the footprint center — sorts adjacent furniture correctly
       zIndex = Math.round((obj.gx + fw / 2 + obj.gy + fh / 2) * 10);
-    } else if (obj.wall && furniture[obj.sprite]) {
-      const wp = wallPlacement(obj);
+    } else if (obj.wall) {
+      const placement = wallPlacement(obj);
+      if (!placement) return null;
+      const { grid, pu, x0, y0, flatY, slope, xc } = placement;
       raster = obj.flat
         ? // flat: faces the viewer (emblems/posters) — no wall shear
           cachedRaster(
-            `${obj.sprite}|flat|${wp.pu}|${wp.xc}|${wp.flatY}`,
+            `${obj.sprite}|flat|${pu}|${xc}|${flatY}`,
             () => [
               {
                 kind: "sprite",
-                grid: wp.grid,
-                scale: wp.pu,
-                x: wp.xc - ((wp.grid.rows[0]?.length ?? 0) * wp.pu) / 2,
-                y: wp.flatY,
+                grid,
+                scale: pu,
+                x: xc - ((grid.rows[0]?.length ?? 0) * pu) / 2,
+                y: flatY,
               },
             ],
           )
         : cachedRaster(
-            `${obj.sprite}|${wp.pu}|${wp.x0}|${wp.y0}|${wp.slope}`,
-            () => [{ kind: "wallSprite", grid: wp.grid, pu: wp.pu, x0: wp.x0, y0: wp.y0, slope: wp.slope }],
+            `${obj.sprite}|${pu}|${x0}|${y0}|${slope}`,
+            () => [{ kind: "wallSprite", grid, pu, x0, y0, slope }],
           );
       anchor = { x: 0, y: 0 }; // wall coords are already room-absolute
       zIndex = 1;
@@ -288,6 +302,7 @@ export function Room({ room, lampsOn, onInteract, children }: RoomProps) {
     .filter((o) => o.sign && o.wall)
     .map((o) => {
       const wp = wallPlacement(o);
+      if (!wp) return null;
       const isNear = nearbyId === o.id;
       return (
         <div

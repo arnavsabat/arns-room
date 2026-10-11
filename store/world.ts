@@ -119,6 +119,7 @@ export const useWorld = create<WorldState>((set, get) => ({
   },
 
   startTransition: (roomId, entry) => {
+    if (get().transitionTo) return;
     const resolved = resolveRoomEntry(roomId, entry);
     if (!resolved) return;
     set({ transitionTo: { roomId, entry: resolved } });
@@ -146,4 +147,4 @@ export const useWorld = create<WorldState>((set, get) => ({
  * High-frequency avatar position, shared by reference (see note at top).
  * Grid coordinates, updated by the movement loop every frame.
  */
-export const avatarPos = { gx: 5, gy: 6 };
+export const avatarPos = { gx: rooms.bedroom.spawn.gx, gy: rooms.bedroom.spawn.gy };

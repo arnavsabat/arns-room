@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { resolveRoomEntry } from "./world";
+import { resolveRoomEntry, useWorld } from "./world";
 
 test("resolveRoomEntry clamps invalid coordinates to the room bounds", () => {
   const safe = resolveRoomEntry("contact", { gx: 999, gy: 999 });
@@ -14,4 +14,12 @@ test("resolveRoomEntry preserves valid coordinates for a real room", () => {
 
 test("resolveRoomEntry rejects unknown rooms", () => {
   assert.equal(resolveRoomEntry("missing-room", { gx: 1, gy: 1 }), null);
+});
+
+test("startTransition ignores duplicate room changes while a transition is active", () => {
+  useWorld.setState({ transitionTo: null });
+  useWorld.getState().startTransition("contact", { gx: 1, gy: 1 });
+  const first = useWorld.getState().transitionTo;
+  useWorld.getState().startTransition("studio", { gx: 1, gy: 1 });
+  assert.deepEqual(useWorld.getState().transitionTo, first);
 });
